@@ -1,3 +1,3 @@
 # Sales.io
 
-This is CRM project for managing your sales.
+This is a CRM project for managing your sales.
