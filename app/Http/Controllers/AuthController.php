@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -37,6 +40,13 @@ class AuthController extends Controller
 
     public function doRegister(RegisterRequest $request)
     {
-        dd($request->all());
+        User::create([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ]);
+
+        return redirect()->back()->with('success', 'You are successfully registered.');
     }
 }

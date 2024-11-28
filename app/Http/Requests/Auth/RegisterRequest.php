@@ -36,7 +36,8 @@ class RegisterRequest extends FormRequest
                 'required',
                 'string',
                 'email',
-                'max:255'
+                'max:255',
+                'unique:users,email'
             ],
             'password' => [
                 'required',
@@ -74,6 +75,7 @@ class RegisterRequest extends FormRequest
             'email.string' => 'Please provide a valid :attribute.',
             'email.email' => 'Please provide a valid :attribute.',
             'email.max' => 'Please provide a valid :attribute.',
+            'email.unique' => 'This :attribute is already in use.',
             'password.required' => 'The :attribute field is required.',
             'password.string' => 'Please provide a valid :attribute.',
             'password.min' => 'The :attribute must be at least :min characters long.',
