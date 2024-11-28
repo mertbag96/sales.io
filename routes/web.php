@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CRM\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// Index
+Route::redirect('/', '/crm');
+
 // Auth
-Route::prefix('/auth')->name('auth.')->group(function () {
+Route::prefix('/auth')->name('auth.')->middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'doLogin'])->name('doLogin');
@@ -24,8 +28,7 @@ Route::prefix('/auth')->name('auth.')->group(function () {
 });
 
 // CRM
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return 'Welcome to Home Page';
-    });
+Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

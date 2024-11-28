@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+
 use App\Models\User;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -22,7 +26,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function doLogin(LoginRequest $request)
+    public function doLogin(LoginRequest $request): RedirectResponse
     {
         if (
             Auth::attempt([
@@ -38,7 +42,7 @@ class AuthController extends Controller
         }
     }
 
-    public function doRegister(RegisterRequest $request)
+    public function doRegister(RegisterRequest $request): RedirectResponse
     {
         User::create([
             'name' => $request->input('name'),
@@ -48,5 +52,15 @@ class AuthController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'You are successfully registered.');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('auth.login');
     }
 }
