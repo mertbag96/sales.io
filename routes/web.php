@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Auth
+Route::prefix('/auth')->name('auth.')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/login', [AuthController::class, 'doLogin'])->name('doLogin');
+    Route::post('/register', [AuthController::class, 'doRegister'])->name('doRegister');
+});
+
+// CRM
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return 'Welcome to Home Page';
+    });
 });
