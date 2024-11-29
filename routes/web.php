@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+
+use App\Http\Controllers\CRM\ProfileController;
 use App\Http\Controllers\CRM\DashboardController;
+use App\Http\Controllers\CRM\MonitoringController;
+use App\Http\Controllers\CRM\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +33,16 @@ Route::prefix('/auth')->name('auth.')->middleware(['guest'])->group(function () 
 
 // CRM
 Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
+    /* Overview */
     Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring');
+
+    /* Profile */
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+    /* Notifications */
+    Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
+
+    /* Logout */
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

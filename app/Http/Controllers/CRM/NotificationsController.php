@@ -6,14 +6,14 @@ use Illuminate\View\View;
 
 use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class NotificationsController extends Controller
 {
     public function index(): View
     {
-        $section = 1;
-        $page = 'Dashboard';
+        $section = 0;
+        $page = 'Notifications';
 
-        return view('crm.dashboard', [
+        return view('crm.notifications', [
             'section' => $section,
             'page' => $page
         ]);
