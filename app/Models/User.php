@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +27,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
+        'company_id',
         'name',
         'surname',
         'email',
@@ -45,6 +52,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'role_id' => 'integer',
+        'company_id' => 'integer',
         'name' => 'string',
         'surname' => 'string',
         'email' => 'string',
@@ -53,13 +62,51 @@ class User extends Authenticatable
         'remember_token' => 'string'
     ];
 
+    // Hash the password automatically
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
     }
 
+    // Get user's full name
     public function getFullNameAttribute(): string
     {
         return $this->name . ' ' . $this->surname;
+    }
+
+    // Get user's role name
+    public function getRoleNameAttribute(): string
+    {
+        return $this->role->name;
+    }
+
+    // Get user's company name (for Company Manager and Company Employee)
+    public function getCompanyNameAttribute(): string
+    {
+        return $this->company?->name;
+    }
+
+    /**
+     * Get the role associated with the user.
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the company associated with the user.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Get the customer associated with the user.
+     */
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class);
     }
 }

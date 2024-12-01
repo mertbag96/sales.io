@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Role;
+
 use Illuminate\Support\Str;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,12 +16,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'John',
-            'surname' => 'Doe',
-            'email' => 'johndoe@example.com',
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10)
+        $defaultAdminRole = Role::create([
+            'name' => 'Admin',
+            'description' => 'Admins are the managers of the Sales.io CRM'
         ]);
+
+        if ($defaultAdminRole) {
+            User::create([
+                'role_id' => $defaultAdminRole->id,
+                'company_id' => null,
+                'name' => 'John',
+                'surname' => 'Doe',
+                'email' => 'admin@sales.io',
+                'email_verified_at' => now(),
+                'password' => 'password',
+                'remember_token' => Str::random(10)
+            ]);
+        }
     }
 }
