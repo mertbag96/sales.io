@@ -12,10 +12,12 @@ class MonitoringController extends Controller
     {
         $section = 1;
         $page = 'Monitoring';
+        $subpage = null;
 
         return view('crm.monitoring', [
             'section' => $section,
-            'page' => $page
+            'page' => $page,
+            'subpage' => $subpage
         ]);
     }
 }

@@ -12,10 +12,12 @@ class ProfileController extends Controller
     {
         $section = 0;
         $page = 'Profile';
+        $subpage = null;
 
         return view('crm.profile', [
             'section' => $section,
-            'page' => $page
+            'page' => $page,
+            'subpage' => $subpage
         ]);
     }
 }

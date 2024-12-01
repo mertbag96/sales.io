@@ -15,8 +15,9 @@
         <ul class="navbar-nav">
             <!-- Overview -->
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                    Overview
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder">
+                    <span class="opacity-5">Overview</span>
+                    @include('crm._components.badge-coming-soon')
                 </h6>
             </li>
 
@@ -47,7 +48,8 @@
 
             <!-- Roles -->
             <li class="nav-item">
-                <a class="nav-link text-dark" href="{{ route('crm.index') }}">
+                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.roles.')) active @endif"
+                    href="{{ route('crm.administration.roles.index') }}">
                     <i class="material-symbols-rounded opacity-5">id_card</i>
                     <span class="nav-link-text ms-1">Roles</span>
                 </a>
@@ -55,7 +57,8 @@
 
             <!-- Users -->
             <li class="nav-item">
-                <a class="nav-link text-dark" href="{{ route('crm.index') }}">
+                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.users.')) active @endif"
+                    href="{{ route('crm.administration.users.index') }}">
                     <i class="material-symbols-rounded opacity-5">people</i>
                     <span class="nav-link-text ms-1">Users</span>
                 </a>
@@ -63,7 +66,8 @@
 
             <!-- Companies -->
             <li class="nav-item">
-                <a class="nav-link text-dark" href="{{ route('crm.index') }}">
+                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.companies.')) active @endif"
+                    href="{{ route('crm.administration.companies.index') }}">
                     <i class="material-symbols-rounded opacity-5">apartment</i>
                     <span class="nav-link-text ms-1">Companies</span>
                 </a>
@@ -71,7 +75,8 @@
 
             <!-- Customers -->
             <li class="nav-item">
-                <a class="nav-link text-dark" href="{{ route('crm.index') }}">
+                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.customers.')) active @endif"
+                    href="{{ route('crm.administration.customers.index') }}">
                     <i class="material-symbols-rounded opacity-5">groups</i>
                     <span class="nav-link-text ms-1">Customers</span>
                 </a>
@@ -79,8 +84,9 @@
 
             <!-- Business -->
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                    Business
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder">
+                    <span class="opacity-5">Business</span>
+                    @include('crm._components.badge-coming-soon')
                 </h6>
             </li>
 

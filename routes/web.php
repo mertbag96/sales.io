@@ -9,6 +9,11 @@ use App\Http\Controllers\CRM\DashboardController;
 use App\Http\Controllers\CRM\MonitoringController;
 use App\Http\Controllers\CRM\NotificationsController;
 
+use App\Http\Controllers\CRM\Administration\RoleController;
+use App\Http\Controllers\CRM\Administration\UserController;
+use App\Http\Controllers\CRM\Administration\CompanyController;
+use App\Http\Controllers\CRM\Administration\CustomerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +41,21 @@ Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
     /* Overview */
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring');
+
+    /* Administration */
+    Route::prefix('/administration')->name('administration.')->group(function () {
+        /* Roles */
+        Route::resource('roles', RoleController::class);
+
+        /* Users */
+        Route::resource('users', UserController::class);
+
+        /* Companies */
+        Route::resource('companies', CompanyController::class);
+
+        /* Customers */
+        Route::resource('customers', CustomerController::class);
+    });
 
     /* Profile */
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

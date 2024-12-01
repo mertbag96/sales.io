@@ -12,10 +12,12 @@ class NotificationsController extends Controller
     {
         $section = 0;
         $page = 'Notifications';
+        $subpage = null;
 
         return view('crm.notifications', [
             'section' => $section,
-            'page' => $page
+            'page' => $page,
+            'subpage' => $subpage
         ]);
     }
 }
