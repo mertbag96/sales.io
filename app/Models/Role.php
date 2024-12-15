@@ -32,6 +32,34 @@ class Role extends Model
         'description' => 'string'
     ];
 
+    // Boot method to handle cascading delete
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($role) {
+            $role->users()->delete();
+        });
+    }
+
+    // Format the created_at value
+    public function getformattedCreatedAtAttribute(): string
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    // Format the updated_at value
+    public function getformattedUpdatedAtAttribute(): string
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    // Human-readable created_at
+    public function getCreatedAtHumanAttribute(): string
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     /**
      * Get the users associated with the role.
      */

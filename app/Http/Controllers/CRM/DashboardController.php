@@ -10,14 +10,10 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        $section = 1;
-        $page = 'Dashboard';
-        $subpage = null;
-
         return view('crm.dashboard', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 1,
+            'page' => 'Dashboard',
+            'subPage' => null
         ]);
     }
 }

@@ -10,14 +10,10 @@ class ProfileController extends Controller
 {
     public function index(): View
     {
-        $section = 0;
-        $page = 'Profile';
-        $subpage = null;
-
         return view('crm.profile', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 0,
+            'page' => 'Profile',
+            'subPage' => null
         ]);
     }
 }

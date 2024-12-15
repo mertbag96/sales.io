@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\CRM\Administration;
 
+use App\Models\User;
+use App\Models\Customer;
+
 use Illuminate\View\View;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\CRM\Administration\Customers\StoreRequest;
+use App\Http\Requests\CRM\Administration\Customers\UpdateRequest;
 
 class CustomerController extends Controller
 {
@@ -15,14 +21,15 @@ class CustomerController extends Controller
      */
     public function index(): View
     {
-        $section = 2;
-        $page = 'Customers';
-        $subpage = null;
+        $users = User::with('customer')
+            ->where('role_id', 4)
+            ->get();
 
         return view('crm.administration.customers.index', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 2,
+            'page' => 'Customers',
+            'subPage' => null,
+            'users' => $users
         ]);
     }
 
@@ -31,68 +38,108 @@ class CustomerController extends Controller
      */
     public function create(): View
     {
-        $section = 2;
-        $page = 'Customers';
-        $subpage = 'Create';
+        $latestCustomers = Customer::with('user')
+            ->limit(10)
+            ->latest()
+            ->get();
 
         return view('crm.administration.customers.create', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 2,
+            'page' => 'Customers',
+            'subPage' => 'Create',
+            'latestCustomers' => $latestCustomers
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
+        $user = User::create([
+            'role_id' => 4,
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        if ($user) {
+            Customer::create([
+                'user_id' => $user->id,
+                'phone' => $request->phone,
+                'address' => $request->address
+            ]);
+        }
+
+        return redirect()
+            ->route('crm.administration.customers.index')
+            ->with('success', 'Customer was successfully created.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View
+    public function show(Customer $customer): View
     {
-        $section = 2;
-        $page = 'Customers';
-
         return view('crm.administration.customers.show', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $id
+            'section' => 2,
+            'page' => 'Customers',
+            'subPage' => $customer->user->fullName,
+            'customer' => $customer
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(Customer $customer): View
     {
-        $section = 2;
-        $page = 'Customers';
-
         return view('crm.administration.customers.edit', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $id
+            'section' => 2,
+            'page' => 'Customers',
+            'subPage' => $customer->user->fullName,
+            'customer' => $customer
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Customer $customer): RedirectResponse
     {
-        //
+        $data = [
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'email' => $request->email
+        ];
+
+        if (isset($request->password)) {
+            $data['password'] = $request->password;
+        }
+
+        $customer->update([
+            'phone' => $request->phone,
+            'address' => $request->address
+        ]);
+
+        $user = User::where('id', $customer->user_id)->first();
+        $user->update($data);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Customer was successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Customer $customer): RedirectResponse
     {
-        //
+        $customer->delete();
+
+        return redirect()
+            ->route('crm.administration.customers.index')
+            ->with('success', 'Customer was successfully deleted.');
     }
 }

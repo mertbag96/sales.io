@@ -10,14 +10,10 @@ class MonitoringController extends Controller
 {
     public function index(): View
     {
-        $section = 1;
-        $page = 'Monitoring';
-        $subpage = null;
-
         return view('crm.monitoring', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 1,
+            'page' => 'Monitoring',
+            'subPage' => null
         ]);
     }
 }

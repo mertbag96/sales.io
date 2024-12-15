@@ -1,3 +1,22 @@
+.w-48 {
+    width: 48%;
+}
+
 .section-content {
     min-height: calc(100dvh - 124px);
+}
+
+.show-tooltip {
+    --bs-tooltip-bg: #1A73E8;
+    --bs-tooltip-color: white;
+}
+
+.edit-tooltip {
+    --bs-tooltip-bg: #fb8c00;
+    --bs-tooltip-color: white;
+}
+
+.delete-tooltip {
+    --bs-tooltip-bg: #F44335;
+    --bs-tooltip-color: white;
 }

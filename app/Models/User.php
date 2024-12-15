@@ -86,6 +86,33 @@ class User extends Authenticatable
         return $this->company?->name;
     }
 
+    // Format the email_verified_at value
+    public function getFormattedEmailVerifiedAtAttribute(): string
+    {
+        $value = $this->email_verified_at;
+        $formatted = is_null($value) ? '-' : $value->format('d.m.Y');
+
+        return $formatted;
+    }
+
+    // Format the created_at value
+    public function getFormattedCreatedAtAttribute(): string
+    {
+        return $this->created_at->format('d.m.Y');
+    }
+
+    // Format the updated_at value
+    public function getFormattedUpdatedAtAttribute(): string
+    {
+        return $this->updated_at->format('d.m.Y');
+    }
+
+    // Human-readable created_at
+    public function getCreatedAtHumanAttribute(): string
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     /**
      * Get the role associated with the user.
      */

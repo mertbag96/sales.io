@@ -35,6 +35,16 @@ class Customer extends Model
         'address' => 'string'
     ];
 
+    // Boot
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($customer) {
+            $customer->user()->delete();
+        });
+    }
+
     /**
      * Get the user associated with the customer.
      */

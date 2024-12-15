@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/nucleo-icons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/nucleo-svg.css') }}" />
     <!-- Fontawesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Fonts -->
     <link rel="stylesheet"
@@ -35,7 +36,9 @@
         <!-- Content -->
         <section class="section-content">
             <div class="p-4">
-                @yield('content')
+                <div class="ps-2 pe-4">
+                    @yield('content')
+                </div>
             </div>
         </section>
 
@@ -43,7 +46,17 @@
         @include('crm._partials.footer')
     </main>
 
+    <!-- Success Modal -->
+    @include('crm._partials.modals.success')
+
+    <!-- Delete Modal -->
+    @include('crm._partials.modals.delete')
+
+    <!-- Log Out Modal -->
+    @include('crm._partials.modals.logout')
+
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
@@ -59,6 +72,12 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+    @if (session()->has('success'))
+        <script>
+            $(".btn-modal-success").click();
+        </script>
+    @endif
+    @yield('scripts')
 </body>
 
 </html>

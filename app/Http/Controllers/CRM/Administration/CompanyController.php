@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\CRM\Administration;
 
+use App\Models\Company;
+
 use Illuminate\View\View;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\CRM\Administration\Companies\StoreRequest;
+use App\Http\Requests\CRM\Administration\Companies\UpdateRequest;
 
 class CompanyController extends Controller
 {
@@ -15,14 +20,13 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
-        $section = 2;
-        $page = 'Companies';
-        $subpage = null;
+        $companies = Company::all();
 
         return view('crm.administration.companies.index', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 2,
+            'page' => 'Companies',
+            'subPage' => null,
+            'companies' => $companies
         ]);
     }
 
@@ -31,68 +35,94 @@ class CompanyController extends Controller
      */
     public function create(): View
     {
-        $section = 2;
-        $page = 'Companies';
-        $subpage = 'Create';
+        $latestCompanies = Company::limit(10)
+            ->latest()
+            ->get();
 
         return view('crm.administration.companies.create', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $subpage
+            'section' => 2,
+            'page' => 'Companies',
+            'subPage' => 'Create',
+            'latestCompanies' => $latestCompanies
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
+        Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'website' => $request->website,
+            'address' => $request->address
+        ]);
+
+        return redirect()
+            ->route('crm.administration.companies.index')
+            ->with('success', 'Company was successfully created.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): View
+    public function show(Company $company): View
     {
-        $section = 2;
-        $page = 'Companies';
+        $users = $company->users()
+            ->orderBy('role_id')
+            ->get();
 
         return view('crm.administration.companies.show', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $id
+            'section' => 2,
+            'page' => 'Companies',
+            'subPage' => $company->name,
+            'company' => $company,
+            'users' => $users
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): View
+    public function edit(Company $company): View
     {
-        $section = 2;
-        $page = 'Companies';
-
         return view('crm.administration.companies.edit', [
-            'section' => $section,
-            'page' => $page,
-            'subpage' => $id
+            'section' => 2,
+            'page' => 'Companies',
+            'subPage' => $company->name,
+            'company' => $company
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Company $company): RedirectResponse
     {
-        //
+        $company->update([
+            'name' => $request->name,
+            'email' => $company->email,
+            'phone' => $request->phone,
+            'website' => $request->website,
+            'address' => $request->address
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Company was successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Company $company): RedirectResponse
     {
-        //
+        $company->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Company was successfully deleted.');
     }
 }

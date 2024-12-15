@@ -1,5 +1,5 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2"
-    id="sidenav-main">
+    id="sidenav-main" style="z-index: 999 !important;">
     <!-- Menu Header -->
     <div class="sidenav-header">
         <a class="navbar-brand px-4 py-3 m-0 d-flex justify-content-center align-items-center"
