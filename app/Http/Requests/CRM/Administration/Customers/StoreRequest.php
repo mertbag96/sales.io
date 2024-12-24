@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\CRM\Administration\Customers;
 
+use App\Models\Customer;
+
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +17,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->role_id === 1;
+        return Gate::allows('create', Customer::class);
     }
 
     /**

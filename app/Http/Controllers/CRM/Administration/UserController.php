@@ -22,6 +22,8 @@ class UserController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', User::class);
+
         $users = User::whereIn('role_id', [1, 2, 3])->get();
 
         $pendingUsers = User::where('role_id', 0)->get();
@@ -40,6 +42,8 @@ class UserController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('create', User::class);
+
         $roles = Role::whereNot('id', 4)->get();
 
         $companies = Company::select('id', 'name')->get();
@@ -85,6 +89,12 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
+        $this->authorize('view', User::class);
+
+        if (!auth()->user()->isAdmin() && $user->role_id == 0) {
+            abort(403);
+        }
+
         return view('crm.administration.users.show', [
             'section' => 2,
             'page' => 'Users',
@@ -98,6 +108,12 @@ class UserController extends Controller
      */
     public function edit(User $user): View
     {
+        $this->authorize('update', User::class);
+
+        if (!auth()->user()->isAdmin() && $user->role_id == 0) {
+            abort(403);
+        }
+
         $roles = Role::whereNot('id', 4)->get();
 
         $companies = Company::select('id', 'name')->get();
@@ -117,6 +133,8 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $user): RedirectResponse
     {
+        $this->authorize('update', User::class);
+
         $data = [
             'role' => $request->role,
             'name' => $request->name,
@@ -144,6 +162,12 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        $this->authorize('delete', User::class);
+
+        if ($user->id === 1) {
+            abort(403);
+        }
+
         $user->delete();
 
         return redirect()

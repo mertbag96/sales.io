@@ -10,10 +10,12 @@
             <!-- Title -->
             <h5 class="m-0">{{ $page }}</h5>
 
-            <a href="{{ route('crm.administration.roles.create') }}"
-                class="bg-success rounded py-2 px-3 font-weight-bold text-white">
-                Create Role
-            </a>
+            @can('create', 'App\Models\Role')
+                <a href="{{ route('crm.administration.roles.create') }}"
+                    class="bg-success rounded py-2 px-3 font-weight-bold text-white">
+                    Create Role
+                </a>
+            @endcan
         </nav>
 
         <!-- Table -->
@@ -55,25 +57,31 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('crm.administration.roles.show', $role) }}"
-                                        class="bg-info rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="show-tooltip"
-                                        data-bs-title="Show">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('crm.administration.roles.edit', $role) }}"
-                                        class="bg-warning rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="edit-tooltip"
-                                        data-bs-title="Edit">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </a>
-                                    <a type="button" data-id="{{ $role->id }}"
-                                        @if ($role->id === 1) disabled style="pointer-events: none; cursor: not-allowed;" @endif
-                                        class="{{ $role->id === 1 ? 'bg-secondary' : 'bg-danger' }} rounded py-1 px-2 border-0 font-weight-bold text-sm text-white"
-                                        @if ($role->id !== 1) data-bs-placement="top" data-bs-custom-class="delete-tooltip"
-                                        data-bs-title="Delete" data-bs-toggle="tooltip" @endif>
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    @can('view', 'App\Models\Role')
+                                        <a href="{{ route('crm.administration.roles.show', $role) }}"
+                                            class="bg-info rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="show-tooltip"
+                                            data-bs-title="Show">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                    @endcan
+                                    @can('update', 'App\Models\Role')
+                                        <a href="{{ route('crm.administration.roles.edit', $role) }}"
+                                            class="bg-warning rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="edit-tooltip"
+                                            data-bs-title="Edit">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </a>
+                                    @endcan
+                                    @can('delete', 'App\Models\Role')
+                                        <a type="button" data-id="{{ $role->id }}"
+                                            @if ($role->id === 1) disabled style="pointer-events: none;" @endif
+                                            class="{{ $role->id === 1 ? 'bg-secondary' : 'bg-danger' }} rounded py-1 px-2 border-0 font-weight-bold text-sm text-white"
+                                            @if ($role->id !== 1) data-bs-placement="top" data-bs-custom-class="delete-tooltip"
+                                            data-bs-title="Delete" data-bs-toggle="tooltip" @endif>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    @endcan
                                 </div>
                             </th>
                         </tr>

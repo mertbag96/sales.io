@@ -11,11 +11,13 @@
             <!-- Title -->
             <h5 class="m-0">Customer: {{ $subPage }}</h5>
 
-            <a href="{{ route('crm.administration.customers.edit', $customer) }}"
-                class="bg-warning rounded py-2 px-3 font-weight-bold text-white">
-                <i class="fas fa-pencil me-1"></i>
-                Edit
-            </a>
+            @can('update', 'App\Models\Customer')
+                <a href="{{ route('crm.administration.customers.edit', $customer) }}"
+                    class="bg-warning rounded py-2 px-3 font-weight-bold text-white">
+                    <i class="fas fa-pencil me-1"></i>
+                    Edit
+                </a>
+            @endcan
         </nav>
 
         <!-- Customer Details -->

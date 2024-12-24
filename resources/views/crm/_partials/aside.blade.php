@@ -31,56 +31,68 @@
             </li>
 
             <!-- Monitoring -->
-            <li class="nav-item">
-                <a class="nav-link text-dark @if (request()->route()->getName() === 'crm.monitoring') active @endif"
-                    href="{{ route('crm.monitoring') }}">
-                    <i class="material-symbols-rounded opacity-5">monitoring</i>
-                    <span class="nav-link-text ms-1">Monitoring</span>
-                </a>
-            </li>
+            @can('see-monitoring')
+                <li class="nav-item">
+                    <a class="nav-link text-dark @if (request()->route()->getName() === 'crm.monitoring') active @endif"
+                        href="{{ route('crm.monitoring') }}">
+                        <i class="material-symbols-rounded opacity-5">monitoring</i>
+                        <span class="nav-link-text ms-1">Monitoring</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Administration -->
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                    Administration
-                </h6>
-            </li>
+            @can('manage-administration')
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
+                        Administration
+                    </h6>
+                </li>
+            @endcan
 
             <!-- Roles -->
-            <li class="nav-item">
-                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.roles.')) active @endif"
-                    href="{{ route('crm.administration.roles.index') }}">
-                    <i class="material-symbols-rounded opacity-5">id_card</i>
-                    <span class="nav-link-text ms-1">Roles</span>
-                </a>
-            </li>
+            @can('viewAny', 'App\Models\Role')
+                <li class="nav-item">
+                    <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.roles.')) active @endif"
+                        href="{{ route('crm.administration.roles.index') }}">
+                        <i class="material-symbols-rounded opacity-5">id_card</i>
+                        <span class="nav-link-text ms-1">Roles</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Users -->
-            <li class="nav-item">
-                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.users.')) active @endif"
-                    href="{{ route('crm.administration.users.index') }}">
-                    <i class="material-symbols-rounded opacity-5">people</i>
-                    <span class="nav-link-text ms-1">Users</span>
-                </a>
-            </li>
+            @can('viewAny', 'App\Models\User')
+                <li class="nav-item">
+                    <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.users.')) active @endif"
+                        href="{{ route('crm.administration.users.index') }}">
+                        <i class="material-symbols-rounded opacity-5">people</i>
+                        <span class="nav-link-text ms-1">Users</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Companies -->
-            <li class="nav-item">
-                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.companies.')) active @endif"
-                    href="{{ route('crm.administration.companies.index') }}">
-                    <i class="material-symbols-rounded opacity-5">apartment</i>
-                    <span class="nav-link-text ms-1">Companies</span>
-                </a>
-            </li>
+            @can('viewAny', 'App\Models\Company')
+                <li class="nav-item">
+                    <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.companies.')) active @endif"
+                        href="{{ route('crm.administration.companies.index') }}">
+                        <i class="material-symbols-rounded opacity-5">apartment</i>
+                        <span class="nav-link-text ms-1">Companies</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Customers -->
-            <li class="nav-item">
-                <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.customers.')) active @endif"
-                    href="{{ route('crm.administration.customers.index') }}">
-                    <i class="material-symbols-rounded opacity-5">groups</i>
-                    <span class="nav-link-text ms-1">Customers</span>
-                </a>
-            </li>
+            @can('viewAny', 'App\Models\Customer')
+                <li class="nav-item">
+                    <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.customers.')) active @endif"
+                        href="{{ route('crm.administration.customers.index') }}">
+                        <i class="material-symbols-rounded opacity-5">groups</i>
+                        <span class="nav-link-text ms-1">Customers</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Business -->
             <li class="nav-item mt-3">

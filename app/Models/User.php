@@ -136,4 +136,68 @@ class User extends Authenticatable
     {
         return $this->hasOne(Customer::class);
     }
+
+    /**
+     * Check if the user is the first user.
+     */
+    public function isFirstUser(): bool
+    {
+        return $this->id === 1;
+    }
+
+    /**
+     * Check if the user is Admin.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role_id === 1;
+    }
+
+    /**
+     * Check if the user is Super Admin.
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->isAdmin() && $this->isFirstUser();
+    }
+
+    /**
+     * Check if the user is Manager.
+     */
+    public function isManager(): bool
+    {
+        return $this->role_id === 2;
+    }
+
+    /**
+     * Check if the user is Employeer.
+     */
+    public function isEmployeer(): bool
+    {
+        return $this->role_id === 3;
+    }
+
+    /**
+     * Check if the user is Customer.
+     */
+    public function isCustomer(): bool
+    {
+        return $this->role_id === 4;
+    }
+
+    /**
+     * Check if the user can see monitoring.
+     */
+    public function canSeeMonitoring(): bool
+    {
+        return $this->isAdmin() || $this->isManager();
+    }
+
+    /**
+     * Check if the user can manage administration.
+     */
+    public function canManageAdministration(): bool
+    {
+        return in_array($this->role_id, [1, 2, 3]);
+    }
 }

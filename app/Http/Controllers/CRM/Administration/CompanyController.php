@@ -20,6 +20,8 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Company::class);
+
         $companies = Company::all();
 
         return view('crm.administration.companies.index', [
@@ -35,6 +37,8 @@ class CompanyController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('create', Company::class);
+
         $latestCompanies = Company::limit(10)
             ->latest()
             ->get();
@@ -70,6 +74,8 @@ class CompanyController extends Controller
      */
     public function show(Company $company): View
     {
+        $this->authorize('view', Company::class);
+
         $users = $company->users()
             ->orderBy('role_id')
             ->get();
@@ -88,6 +94,8 @@ class CompanyController extends Controller
      */
     public function edit(Company $company): View
     {
+        $this->authorize('update', Company::class);
+
         return view('crm.administration.companies.edit', [
             'section' => 2,
             'page' => 'Companies',
@@ -119,6 +127,8 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company): RedirectResponse
     {
+        $this->authorize('delete', Company::class);
+
         $company->delete();
 
         return redirect()

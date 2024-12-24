@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CRM\Administration\Customers\StoreRequest;
 use App\Http\Requests\CRM\Administration\Customers\UpdateRequest;
 
+
 class CustomerController extends Controller
 {
     /**
@@ -21,6 +22,8 @@ class CustomerController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewany', Customer::class);
+
         $users = User::with('customer')
             ->where('role_id', 4)
             ->get();
@@ -38,6 +41,8 @@ class CustomerController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('create', Customer::class);
+
         $latestCustomers = Customer::with('user')
             ->limit(10)
             ->latest()
@@ -82,6 +87,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer): View
     {
+        $this->authorize('view', Customer::class);
+
         return view('crm.administration.customers.show', [
             'section' => 2,
             'page' => 'Customers',
@@ -95,6 +102,8 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer): View
     {
+        $this->authorize('update', Customer::class);
+
         return view('crm.administration.customers.edit', [
             'section' => 2,
             'page' => 'Customers',
@@ -136,6 +145,8 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer): RedirectResponse
     {
+        $this->authorize('delete', Customer::class);
+
         $customer->delete();
 
         return redirect()

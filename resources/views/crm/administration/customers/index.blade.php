@@ -10,10 +10,12 @@
             <!-- Title -->
             <h5 class="m-0">{{ $page }}</h5>
 
-            <a href="{{ route('crm.administration.customers.create') }}"
-                class="bg-success rounded py-2 px-3 font-weight-bold text-white">
-                Create Customer
-            </a>
+            @can('create', 'App\Models\Customer')
+                <a href="{{ route('crm.administration.customers.create') }}"
+                    class="bg-success rounded py-2 px-3 font-weight-bold text-white">
+                    Create Customer
+                </a>
+            @endcan
         </nav>
 
         <!-- Customers Table -->
@@ -63,24 +65,30 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('crm.administration.customers.show', $user->customer) }}"
-                                        class="bg-info rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="show-tooltip"
-                                        data-bs-title="Show">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('crm.administration.customers.edit', $user->customer) }}"
-                                        class="bg-warning rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="edit-tooltip"
-                                        data-bs-title="Edit">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </a>
-                                    <a type="button" data-id="{{ $user->customer->id }}"
-                                        class="btn-delete-user bg-danger rounded py-1 px-2 border-0 font-weight-bold text-sm text-white"
-                                        data-bs-placement="top" data-bs-custom-class="delete-tooltip" data-bs-title="Delete"
-                                        data-bs-toggle="tooltip">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                                    @can('view', 'App\Models\Customer')
+                                        <a href="{{ route('crm.administration.customers.show', $user->customer) }}"
+                                            class="bg-info rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="show-tooltip"
+                                            data-bs-title="Show">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                    @endcan
+                                    @can('update', 'App\Models\Customer')
+                                        <a href="{{ route('crm.administration.customers.edit', $user->customer) }}"
+                                            class="bg-warning rounded py-1 px-2 font-weight-bold text-sm text-white me-2"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="edit-tooltip"
+                                            data-bs-title="Edit">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </a>
+                                    @endcan
+                                    @can('delete', 'App\Models\Customer')
+                                        <a type="button" data-id="{{ $user->customer->id }}"
+                                            class="btn-delete-user bg-danger rounded py-1 px-2 border-0 font-weight-bold text-sm text-white"
+                                            data-bs-placement="top" data-bs-custom-class="delete-tooltip" data-bs-title="Delete"
+                                            data-bs-toggle="tooltip">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    @endcan
                                 </div>
                             </th>
                         </tr>

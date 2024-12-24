@@ -10,6 +10,8 @@ class MonitoringController extends Controller
 {
     public function index(): View
     {
+        $this->authorize('see-monitoring');
+
         return view('crm.monitoring', [
             'section' => 1,
             'page' => 'Monitoring',

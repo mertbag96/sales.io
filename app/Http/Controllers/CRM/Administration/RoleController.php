@@ -20,6 +20,8 @@ class RoleController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Role::class);
+
         $roles = Role::all();
 
         return view('crm.administration.roles.index', [
@@ -35,6 +37,8 @@ class RoleController extends Controller
      */
     public function create(): View
     {
+        $this->authorize('create', Role::class);
+
         $latestRoles = Role::latest()
             ->limit(5)
             ->get();
@@ -67,6 +71,8 @@ class RoleController extends Controller
      */
     public function show(Role $role): View
     {
+        $this->authorize('view', Role::class);
+
         return view('crm.administration.roles.show', [
             'section' => 2,
             'page' => 'Roles',
@@ -81,6 +87,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role): View
     {
+        $this->authorize('update', Role::class);
+
         return view('crm.administration.roles.edit', [
             'section' => 2,
             'page' => 'Roles',
@@ -109,6 +117,12 @@ class RoleController extends Controller
      */
     public function destroy(Role $role): RedirectResponse
     {
+        $this->authorize('delete', Role::class);
+
+        if ($role->id === 1) {
+            abort(403);
+        }
+
         $role->delete();
 
         return redirect()

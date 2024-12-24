@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests\CRM\Administration\Roles;
 
+use App\Models\Role;
+
+use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -11,8 +15,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /* Authorize Admins */
-        return auth()->user()->role_id == 1;
+        return Gate::allows('create', Role::class);
     }
 
     /**

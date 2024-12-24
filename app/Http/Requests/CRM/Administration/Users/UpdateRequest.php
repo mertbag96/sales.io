@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\CRM\Administration\Users;
 
+use App\Models\User;
+
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,8 +17,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /* Authorize Admins & Managers */
-        return in_array(auth()->user()->role_id, [1, 2]);
+        return Gate::allows('update', User::class);
     }
 
     /**

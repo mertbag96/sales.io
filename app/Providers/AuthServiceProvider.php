@@ -2,7 +2,18 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Company;
+use App\Models\Customer;
+
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
+use App\Policies\CompanyPolicy;
+use App\Policies\CustomerPolicy;
+
+use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +24,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Role::class => RolePolicy::class,
+        User::class => UserPolicy::class,
+        Company::class => CompanyPolicy::class,
+        Customer::class => CustomerPolicy::class
     ];
 
     /**
@@ -23,6 +37,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('see-monitoring', function (User $user): bool {
+            return $user->canSeeMonitoring();
+        });
+
+        Gate::define('manage-administration', function (User $user): bool {
+            return $user->canManageAdministration();
+        });
     }
 }
