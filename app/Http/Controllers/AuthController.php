@@ -28,12 +28,16 @@ class AuthController extends Controller
 
     public function doLogin(LoginRequest $request): RedirectResponse
     {
-        if (
-            Auth::attempt([
-                'email' => $request->input('email'),
-                'password' => $request->input('password'),
-            ])
-        ) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if ($user->role_id < 1) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'The provided credentials do not match our records.'
+                ]);
+            }
             return redirect()->intended('/');
         } else {
             return back()->withErrors([
