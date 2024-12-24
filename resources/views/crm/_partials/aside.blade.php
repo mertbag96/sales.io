@@ -10,6 +10,10 @@
 
     <hr class="horizontal dark mt-0 mb-2">
 
+    @include('crm._components.user-card')
+
+    <hr class="horizontal dark mt-0 mb-2">
+
     <!-- Menu -->
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">

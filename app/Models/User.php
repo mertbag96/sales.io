@@ -170,9 +170,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the user is Employeer.
+     * Check if the user is Employee.
      */
-    public function isEmployeer(): bool
+    public function isEmployee(): bool
     {
         return $this->role_id === 3;
     }
