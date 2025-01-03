@@ -11,14 +11,16 @@
     <title>Sales.io - @yield('title')</title>
 </head>
 
-<body class="py-24 flex justify-center items-center">
-    <form action="@yield('action')" method="POST" class="w-1/5" autocomplete="off">
-        @csrf
-        <div class="mb-4 flex justify-center">
-            <img src="{{ asset('logo.JPG') }}" alt="" width="144px">
-        </div>
-        @yield('content')
-    </form>
+<body>
+    <div class="flex justify-center items-center min-h-dvh">
+        <form action="@yield('action')" method="POST" class="w-1/5" autocomplete="off">
+            @csrf
+            <div class="mb-4 flex justify-center">
+                <img src="{{ asset('logo.JPG') }}" alt="" width="144px">
+            </div>
+            @yield('content')
+        </form>
+    </div>
 
     @if (session('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show"
