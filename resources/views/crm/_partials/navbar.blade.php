@@ -37,7 +37,7 @@
         <ul class="navbar-nav
                     d-flex align-items-center justify-content-end">
                 <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="{{ route('crm.profile') }}"
+                    <a href="{{ route('crm.profile.show') }}"
                         class="nav-link d-flex align-items-center font-weight-bold text-body">
                         <i class="material-symbols-rounded">account_circle</i>
                         <span class="ms-1">Profile</span>

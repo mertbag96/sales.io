@@ -58,7 +58,12 @@ Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
     });
 
     /* Profile */
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::prefix('/profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'show'])->name('show');
+        Route::get('/edit/{user}', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/edit/{user}', [ProfileController::class, 'update'])->name('update');
+        Route::put('/change-password/{user}', [ProfileController::class, 'changePassword'])->name('change-password');
+    });
 
     /* Notifications */
     Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications');
