@@ -27,6 +27,10 @@ class ProfileController extends Controller
 
     public function edit(User $user): View
     {
+        if (auth()->id() !== $user->id) {
+            abort(404);
+        }
+
         return view('crm.profile.edit', [
             'section' => 0,
             'page' => 'Profile',
@@ -37,6 +41,10 @@ class ProfileController extends Controller
 
     public function update(UpdateRequest $request, User $user): RedirectResponse
     {
+        if (auth()->id() !== $user->id) {
+            abort(404);
+        }
+
         $user->update([
             'name' => $request->name,
             'surname' => $request->surname,

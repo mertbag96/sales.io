@@ -22,7 +22,12 @@ class CompanyController extends Controller
     {
         $this->authorize('viewAny', Company::class);
 
-        $companies = Company::all();
+        if (auth()->user()->isAdmin()) {
+            $companies = Company::all();
+        } else {
+            $companies = Company::where('id', auth()->user()->company_id)
+                ->get();
+        }
 
         return view('crm.administration.companies.index', [
             'section' => 2,
@@ -75,6 +80,12 @@ class CompanyController extends Controller
     public function show(Company $company): View
     {
         $this->authorize('view', Company::class);
+
+        if (!auth()->user()->isAdmin()) {
+            if (auth()->user()->company_id !== $company->id) {
+                abort(404);
+            }
+        }
 
         $users = $company->users()
             ->orderBy('role_id')

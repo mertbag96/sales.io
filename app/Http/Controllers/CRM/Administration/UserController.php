@@ -24,7 +24,14 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $users = User::whereIn('role_id', [1, 2, 3])->get();
+        if (auth()->user()->isAdmin()) {
+            $users = User::whereIn('role_id', [1, 2, 3]);
+        } else {
+            $users = User::whereIn('role_id', [2, 3])
+                ->where('company_id', auth()->user()->company_id);
+        }
+
+        $users = $users->orderBy('role_id')->get();
 
         $pendingUsers = User::where('role_id', 0)->get();
 
@@ -44,11 +51,25 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
 
-        $roles = Role::whereNot('id', 4)->get();
+        if (auth()->user()->isAdmin()) {
+            $roles = Role::whereNot('id', 4);
 
-        $companies = Company::select('id', 'name')->get();
+            $companies = Company::pluck('name', 'id');
 
-        $latestUsers = User::whereIn('role_id', [1, 2, 3])
+            $latestUsers = User::whereIn('role_id', [1, 2, 3]);
+        } else {
+            $roles = Role::whereIn('id', [2, 3]);
+
+            $companies = Company::where('id', auth()->user()->company_id)
+                ->pluck('name', 'id');
+
+            $latestUsers = User::whereIn('role_id', [2, 3])
+                ->where('company_id', auth()->user()->company_id);
+        }
+
+        $roles = $roles->pluck('name', 'id');
+
+        $latestUsers = $latestUsers
             ->limit(10)
             ->latest()
             ->get();
@@ -91,8 +112,10 @@ class UserController extends Controller
     {
         $this->authorize('view', User::class);
 
-        if (!auth()->user()->isAdmin() && $user->role_id == 0) {
-            abort(403);
+        if (!auth()->user()->isAdmin()) {
+            if (($user->role_id == 0) || (auth()->user()->company_id !== $user->company_id)) {
+                abort(404);
+            }
         }
 
         return view('crm.administration.users.show', [
@@ -110,13 +133,24 @@ class UserController extends Controller
     {
         $this->authorize('update', User::class);
 
-        if (!auth()->user()->isAdmin() && $user->role_id == 0) {
-            abort(403);
+        if (!auth()->user()->isAdmin()) {
+            if (($user->role_id == 0) || (auth()->user()->company_id !== $user->company_id)) {
+                abort(404);
+            }
         }
 
-        $roles = Role::whereNot('id', 4)->get();
+        if (auth()->user()->isAdmin()) {
+            $roles = Role::whereNot('id', 4);
 
-        $companies = Company::select('id', 'name')->get();
+            $companies = Company::pluck('name', 'id');
+        } else {
+            $roles = Role::whereIn('id', [2, 3]);
+
+            $companies = Company::where('id', auth()->user()->company_id)
+                ->pluck('name', 'id');
+        }
+
+        $roles = $roles->pluck('name', 'id');
 
         return view('crm.administration.users.edit', [
             'section' => 2,

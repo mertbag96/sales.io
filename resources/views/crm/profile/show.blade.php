@@ -11,13 +11,12 @@
             <!-- Title -->
             <h5 class="m-0">Profile</h5>
 
-            @can('update', 'App\Models\User')
-                <a href="{{ route('crm.profile.edit', $user) }}"
-                    class="bg-warning rounded py-2 px-3 border-0 font-weight-bold text-white">
-                    <i class="fas fa-pencil me-1"></i>
-                    Edit
-                </a>
-            @endcan
+
+            <a href="{{ route('crm.profile.edit', $user) }}"
+                class="bg-warning rounded py-2 px-3 border-0 font-weight-bold text-white">
+                <i class="fas fa-pencil me-1"></i>
+                Edit
+            </a>
         </nav>
 
         <!-- Profile Details -->

@@ -25,9 +25,9 @@
                         <option value="0">
                             Please select a role
                         </option>
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" @if ($user->role && $user->role_id == $role->id) selected @endif>
-                                {{ $role->name }}
+                        @foreach ($roles as $id => $name)
+                            <option value="{{ $id }}" @if ($user->role && $user->role_id == $id) selected @endif>
+                                {{ $name }}
                             </option>
                         @endforeach
                     </select>
@@ -45,10 +45,12 @@
                         <span class="d-none text-danger">*</span>
                     </label>
                     <select name="company" id="company" class="outline-none p-2 W-48">
-                        <option value="0">Please select a company</option>
-                        @foreach ($companies as $company)
-                            <option value="{{ $company->id }}" @if ($user->company && $user->company_id == $company->id) selected @endif>
-                                {{ $company->name }}
+                        @if (auth()->user()->isAdmin())
+                            <option value="0">Please select a company</option>
+                        @endif
+                        @foreach ($companies as $id => $name)
+                            <option value="{{ $id }}" @if ($user->company && $user->company_id == $id) selected @endif>
+                                {{ $name }}
                             </option>
                         @endforeach
                     </select>
@@ -163,7 +165,9 @@
 @section('scripts')
     <script>
         $('#role').on('change', function() {
-            $('#company').val('0');
+            @if (auth()->user()->isAdmin())
+                $('#company').val('0');
+            @endif
             ['2', '3'].includes(this.value) ? toggleCompanyField(1) : toggleCompanyField(0);
         });
 
