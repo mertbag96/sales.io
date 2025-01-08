@@ -20,3 +20,7 @@
     --bs-tooltip-bg: #F44335;
     --bs-tooltip-color: white;
 }
+
+.no-arrow::after {
+    display: none !important;
+}

@@ -33,9 +33,47 @@
             </ol>
         </nav>
 
-        <!-- Icons -->
+        <!-- Menu -->
         <ul class="navbar-nav
                     d-flex align-items-center justify-content-end">
+                    <!-- Language -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex align-items-center dropdown-toggle font-weight-bold text-body no-arrow"
+                        href="#" id="lang" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="material-symbols-rounded">language</i>
+                        <span class="ms-1">
+                            @switch(app()->getLocale())
+                                @case('tr')
+                                    Türkçe
+                                @break
+
+                                @default
+                                    English
+                            @endswitch
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="lang" style="min-width: 92px;">
+                        @php $languages = ['en', 'tr']; @endphp
+                        @foreach ($languages as $lang)
+                            @if (app()->getLocale() !== $lang)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('set-language', $lang) }}">
+                                        @switch($lang)
+                                            @case('tr')
+                                                Türkçe
+                                            @break
+
+                                            @default
+                                                English
+                                        @endswitch
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
+
+                <!-- Profile -->
                 <li class="nav-item px-3 d-flex align-items-center">
                     <a href="{{ route('crm.profile.show') }}"
                         class="nav-link d-flex align-items-center font-weight-bold text-body">
@@ -44,6 +82,7 @@
                     </a>
                 </li>
 
+                <!-- Notifications -->
                 <li class="nav-item dropdown pe-3 d-flex align-items-center">
                     <a href="{{ route('crm.notifications') }}"
                         class="nav-link d-flex align-items-center font-weight-bold text-body">
@@ -52,6 +91,7 @@
                     </a>
                 </li>
 
+                <!-- Logout -->
                 <li class="nav-item d-flex align-items-center">
                     <a type="button" class="nav-link d-flex align-items-center font-weight-bold text-body"
                         data-bs-toggle="modal" data-bs-target="#modal-logout">

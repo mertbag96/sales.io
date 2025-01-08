@@ -35,13 +35,14 @@ class AuthController extends Controller
             if ($user->role_id < 1) {
                 Auth::logout();
                 return back()->withErrors([
-                    'email' => 'The provided credentials do not match our records.'
+                    'email' => __('auth.incorrect_credentials')
                 ]);
             }
+
             return redirect()->intended('/');
         } else {
             return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.'
+                'email' => __('auth.incorrect_credentials')
             ]);
         }
     }
@@ -55,7 +56,9 @@ class AuthController extends Controller
             'password' => $request->input('password')
         ]);
 
-        return redirect()->back()->with('success', 'You are successfully registered.');
+        return redirect()
+            ->back()
+            ->with('success', __('auth.register_success'));
     }
 
     public function logout(Request $request): RedirectResponse

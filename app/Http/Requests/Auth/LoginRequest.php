@@ -30,7 +30,6 @@ class LoginRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'string'
             ],
         ];
     }
@@ -45,27 +44,11 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'The :attribute field is required.',
-            'email.string' => 'Please provide a valid :attribute.',
-            'email.email' => 'Please provide a valid :attribute.',
-            'email.max' => 'Please provide a valid :attribute.',
-            'password.required' => 'The :attribute field is required.',
-            'password.string' => 'Please provide a valid :attribute.'
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, string> An array where the keys are attribute names
-     *                              (e.g., 'email') and the values are user-friendly
-     *                              attribute labels (e.g., 'email').
-     */
-    public function attributes(): array
-    {
-        return [
-            'email' => 'email',
-            'password' => 'password'
+            'email.required' => __('auth.email_required'),
+            'email.string' => __('auth.email_regex'),
+            'email.email' => __('auth.email_regex'),
+            'email.max' => __('auth.email_regex'),
+            'password.required' => __('auth.password_required')
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\CRM\ProfileController;
@@ -29,7 +30,7 @@ use App\Http\Controllers\CRM\Administration\CustomerController;
 Route::redirect('/', '/crm');
 
 // Auth
-Route::prefix('/auth')->name('auth.')->middleware(['guest'])->group(function () {
+Route::prefix('/auth')->name('auth.')->middleware(['guest', 'web'])->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'doLogin'])->name('doLogin');
@@ -37,7 +38,7 @@ Route::prefix('/auth')->name('auth.')->middleware(['guest'])->group(function () 
 });
 
 // CRM
-Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
+Route::prefix('/crm')->name('crm.')->middleware(['auth', 'web'])->group(function () {
     /* Overview */
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/monitoring', [MonitoringController::class, 'index'])->name('monitoring');
@@ -71,3 +72,6 @@ Route::prefix('/crm')->name('crm.')->middleware(['auth'])->group(function () {
     /* Logout */
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+// Set Language
+Route::get('/set-language/{language}', [Controller::class, 'setLanguage'])->name('set-language');

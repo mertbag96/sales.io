@@ -25,12 +25,12 @@ class RegisterRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:50'
+                'max:48'
             ],
             'surname' => [
                 'required',
                 'string',
-                'max:50'
+                'max:48'
             ],
             'email' => [
                 'required',
@@ -41,7 +41,6 @@ class RegisterRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'string',
                 'min:8',
                 'max:24',
                 'regex:/[A-Z]/',
@@ -65,41 +64,22 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The :attribute field is required.',
-            'name.string' => 'Please provide a valid :attribute.',
-            'name.max' => 'The :attribute must be maximum :max characters long.',
-            'surname.required' => 'The :attribute field is required.',
-            'surname.string' => 'Please provide a valid :attribute.',
-            'surname.max' => 'The :attribute must be maximum :max characters long.',
-            'email.required' => 'The :attribute field is required.',
-            'email.string' => 'Please provide a valid :attribute.',
-            'email.email' => 'Please provide a valid :attribute.',
-            'email.max' => 'Please provide a valid :attribute.',
-            'email.unique' => 'This :attribute is already in use.',
-            'password.required' => 'The :attribute field is required.',
-            'password.string' => 'Please provide a valid :attribute.',
-            'password.min' => 'The :attribute must be at least :min characters long.',
-            'password.max' => 'The :attribute must be maximum :max characters long.',
-            'password.regex' => 'The :attribute must include at least one uppercase letter, one lowercase letter, one digit, and one special character.',
-            'check.accepted' => 'You must accept the :attribute.'
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, string> An array where the keys are attribute names
-     *                              (e.g., 'email') and the values are user-friendly
-     *                              attribute labels (e.g., 'email').
-     */
-    public function attributes(): array
-    {
-        return [
-            'name' => 'name',
-            'surname' => 'surname',
-            'email' => 'email',
-            'password' => 'password',
-            'check' => 'terms and conditions'
+            'name.required' => __('auth.name_required'),
+            'name.string' => __('auth.name_string'),
+            'name.max' => __('auth.name_max'),
+            'surname.required' => __('auth.surname_required'),
+            'surname.string' => __('auth.surname_string'),
+            'surname.max' => __('auth.surname_max'),
+            'email.required' => __('auth.email_required'),
+            'email.string' => __('auth.email_regex'),
+            'email.email' => __('auth.email_regex'),
+            'email.max' => __('auth.email_regex'),
+            'email.unique' => __('auth.email_unique'),
+            'password.required' => __('auth.password_required'),
+            'password.min' => __('auth.password_min'),
+            'password.max' => __('auth.password_max'),
+            'password.regex' => __('auth.password_regex'),
+            'check.accepted' => __('auth.check_accepted')
         ];
     }
 }
