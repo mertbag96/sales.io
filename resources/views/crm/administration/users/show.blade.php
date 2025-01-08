@@ -102,7 +102,6 @@
                         <th class="text-center text-white text-sm text-uppercase">Name</th>
                         <th class="text-center text-white text-sm text-uppercase">Description</th>
                         <th class="text-center text-white text-sm text-uppercase">Created At</th>
-                        <th class="text-center text-white text-sm text-uppercase">Updated At</th>
                         <th class="text-center text-white text-sm text-uppercase">Actions</th>
                     </tr>
                 </thead>
@@ -126,9 +125,6 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 {{ $user->role->formatted_created_at }}
-                            </th>
-                            <th class="fw-normal text-center text-dark text-sm">
-                                {{ $user->role->formatted_updated_at }}
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">
@@ -175,7 +171,6 @@
                         <th class="text-center text-white text-sm text-uppercase">Adress</th>
                         <th class="text-center text-white text-sm text-uppercase">Website</th>
                         <th class="text-center text-white text-sm text-uppercase">Created At</th>
-                        <th class="text-center text-white text-sm text-uppercase">Updated At</th>
                         <th class="text-center text-white text-sm text-uppercase">Actions</th>
                     </tr>
                 </thead>
@@ -208,9 +203,6 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 {{ $user->company->formatted_created_at }}
-                            </th>
-                            <th class="fw-normal text-center text-dark text-sm">
-                                {{ $user->company->formatted_updated_at }}
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">

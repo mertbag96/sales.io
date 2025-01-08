@@ -29,7 +29,6 @@
                     <th class="text-center text-white text-sm text-uppercase">Surname</th>
                     <th class="text-center text-white text-sm text-uppercase">Email Address</th>
                     <th class="text-center text-white text-sm text-uppercase">Created At</th>
-                    <th class="text-center text-white text-sm text-uppercase">Updated At</th>
                     <th class="text-center text-white text-sm text-uppercase">Actions</th>
                 </tr>
             </thead>
@@ -63,9 +62,6 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 {{ $user->formatted_created_at }}
-                            </th>
-                            <th class="fw-normal text-center text-dark text-sm">
-                                {{ $user->formatted_updated_at }}
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">
@@ -121,7 +117,6 @@
                         <th class="text-center text-white text-sm text-uppercase">Surname</th>
                         <th class="text-center text-white text-sm text-uppercase">Email Address</th>
                         <th class="text-center text-white text-sm text-uppercase">Created At</th>
-                        <th class="text-center text-white text-sm text-uppercase">Updated At</th>
                         <th class="text-center text-white text-sm text-uppercase">Actions</th>
                     </tr>
                 </thead>
@@ -155,9 +150,6 @@
                                 </th>
                                 <th class="fw-normal text-center text-dark text-sm">
                                     {{ $pendingUser->formatted_created_at }}
-                                </th>
-                                <th class="fw-normal text-center text-dark text-sm">
-                                    {{ $pendingUser->formatted_updated_at }}
                                 </th>
                                 <th class="fw-normal text-center text-dark text-sm">
                                     <div class="d-flex justify-content-center align-items-center">

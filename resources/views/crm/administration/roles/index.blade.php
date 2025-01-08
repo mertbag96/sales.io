@@ -26,7 +26,6 @@
                     <th class="text-center text-white text-sm text-uppercase">Name</th>
                     <th class="text-center text-white text-sm text-uppercase">Description</th>
                     <th class="text-center text-white text-sm text-uppercase">Created At</th>
-                    <th class="text-center text-white text-sm text-uppercase">Updated At</th>
                     <th class="text-center text-white text-sm text-uppercase">Actions</th>
                 </tr>
             </thead>
@@ -51,9 +50,6 @@
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 {{ $role->formatted_created_at }}
-                            </th>
-                            <th class="fw-normal text-center text-dark text-sm">
-                                {{ $role->formatted_updated_at }}
                             </th>
                             <th class="fw-normal text-center text-dark text-sm">
                                 <div class="d-flex justify-content-center align-items-center">
