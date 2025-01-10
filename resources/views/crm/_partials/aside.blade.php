@@ -20,7 +20,9 @@
             <!-- Overview -->
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder">
-                    <span class="opacity-5">Overview</span>
+                    <span class="opacity-5">
+                        {{ __('general.overview.title') }}
+                    </span>
                     @include('crm._components.badge-coming-soon')
                 </h6>
             </li>
@@ -30,7 +32,7 @@
                 <a class="nav-link text-dark @if (request()->route()->getName() === 'crm.index') active @endif"
                     href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">dashboard</i>
-                    <span class="nav-link-text ms-1">Dashboard</span>
+                    <span class="nav-link-text ms-1">{{ __('general.overview.dashboard.title') }}</span>
                 </a>
             </li>
 
@@ -40,7 +42,7 @@
                     <a class="nav-link text-dark @if (request()->route()->getName() === 'crm.monitoring') active @endif"
                         href="{{ route('crm.monitoring') }}">
                         <i class="material-symbols-rounded opacity-5">monitoring</i>
-                        <span class="nav-link-text ms-1">Monitoring</span>
+                        <span class="nav-link-text ms-1">{{ __('general.overview.monitoring.title') }}</span>
                     </a>
                 </li>
             @endcan
@@ -49,7 +51,7 @@
             @can('manage-administration')
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">
-                        Administration
+                        {{ __('general.administration.title') }}
                     </h6>
                 </li>
             @endcan
@@ -60,7 +62,7 @@
                     <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.roles.')) active @endif"
                         href="{{ route('crm.administration.roles.index') }}">
                         <i class="material-symbols-rounded opacity-5">id_card</i>
-                        <span class="nav-link-text ms-1">Roles</span>
+                        <span class="nav-link-text ms-1">{{ __('general.administration.roles.title') }}</span>
                     </a>
                 </li>
             @endcan
@@ -71,7 +73,7 @@
                     <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.users.')) active @endif"
                         href="{{ route('crm.administration.users.index') }}">
                         <i class="material-symbols-rounded opacity-5">people</i>
-                        <span class="nav-link-text ms-1">Users</span>
+                        <span class="nav-link-text ms-1">{{ __('general.administration.users.title') }}</span>
                     </a>
                 </li>
             @endcan
@@ -82,7 +84,7 @@
                     <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.companies.')) active @endif"
                         href="{{ route('crm.administration.companies.index') }}">
                         <i class="material-symbols-rounded opacity-5">apartment</i>
-                        <span class="nav-link-text ms-1">Companies</span>
+                        <span class="nav-link-text ms-1">{{ __('general.administration.companies.title') }}</span>
                     </a>
                 </li>
             @endcan
@@ -93,7 +95,7 @@
                     <a class="nav-link text-dark @if (Str::startsWith(Route::currentRouteName(), 'crm.administration.customers.')) active @endif"
                         href="{{ route('crm.administration.customers.index') }}">
                         <i class="material-symbols-rounded opacity-5">groups</i>
-                        <span class="nav-link-text ms-1">Customers</span>
+                        <span class="nav-link-text ms-1">{{ __('general.administration.customers.title') }}</span>
                     </a>
                 </li>
             @endcan
@@ -101,7 +103,7 @@
             <!-- Business -->
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder">
-                    <span class="opacity-5">Business</span>
+                    <span class="opacity-5">{{ __('general.business.title') }}</span>
                     @include('crm._components.badge-coming-soon')
                 </h6>
             </li>
@@ -110,7 +112,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">category</i>
-                    <span class="nav-link-text ms-1">Categories</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.categories.title') }}</span>
                 </a>
             </li>
 
@@ -118,7 +120,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">box</i>
-                    <span class="nav-link-text ms-1">Products</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.products.title') }}</span>
                 </a>
             </li>
 
@@ -126,7 +128,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">inventory</i>
-                    <span class="nav-link-text ms-1">Inventory</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.inventory.title') }}</span>
                 </a>
             </li>
 
@@ -134,7 +136,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">orders</i>
-                    <span class="nav-link-text ms-1">Orders</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.orders.title') }}</span>
                 </a>
             </li>
 
@@ -142,7 +144,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">forum</i>
-                    <span class="nav-link-text ms-1">Comments</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.comments.title') }}</span>
                 </a>
             </li>
 
@@ -150,7 +152,7 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" href="{{ route('crm.index') }}">
                     <i class="material-symbols-rounded opacity-5">assignment</i>
-                    <span class="nav-link-text ms-1">Invoices</span>
+                    <span class="nav-link-text ms-1">{{ __('general.business.invoices.title') }}</span>
                 </a>
             </li>
         </ul>

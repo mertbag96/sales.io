@@ -27,7 +27,7 @@
         </div>
         <div class="mb-8">
             <p class="m-0 font-medium text-black text-4xl text-center">
-                Ooops! Something went wrong.
+                {{ __('general.errors.oops') }}
             </p>
         </div>
         <div class="mb-8">
@@ -36,7 +36,7 @@
             </p>
         </div>
         <div>
-            <p class="m-0 font-bold text-black text-6xl text-center">
+            <p class="m-0 font-bold text-black text-4xl text-center">
                 @yield('error')
             </p>
         </div>

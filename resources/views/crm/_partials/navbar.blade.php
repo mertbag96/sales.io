@@ -6,15 +6,15 @@
                 <li class="breadcrumb-item opacity-5 text-dark text-sm">
                     @switch($section)
                         @case(1)
-                            Overview
+                            {{ __('general.overview.title') }}
                         @break
 
                         @case(2)
-                            Administration
+                            {{ __('general.overview.administration.title') }}
                         @break
 
                         @case(3)
-                            Business
+                            {{ __('general.business.title') }}
                         @break
 
                         @default
@@ -78,7 +78,7 @@
                     <a href="{{ route('crm.profile.show') }}"
                         class="nav-link d-flex align-items-center font-weight-bold text-body">
                         <i class="material-symbols-rounded">account_circle</i>
-                        <span class="ms-1">Profile</span>
+                        <span class="ms-1">{{ __('general.layout.navbar.profile') }}</span>
                     </a>
                 </li>
 
@@ -87,7 +87,7 @@
                     <a href="{{ route('crm.notifications') }}"
                         class="nav-link d-flex align-items-center font-weight-bold text-body">
                         <i class="material-symbols-rounded">notifications</i>
-                        <span class="ms-1">Notifications</span>
+                        <span class="ms-1">{{ __('general.layout.navbar.notifications') }}</span>
                     </a>
                 </li>
 
@@ -96,7 +96,7 @@
                     <a type="button" class="nav-link d-flex align-items-center font-weight-bold text-body"
                         data-bs-toggle="modal" data-bs-target="#modal-logout">
                         <i class="material-symbols-rounded">logout</i>
-                        <span class="ms-1">Logout</span>
+                        <span class="ms-1">{{ __('general.layout.navbar.logout') }}</span>
                     </a>
                 </li>
                 </ul>
